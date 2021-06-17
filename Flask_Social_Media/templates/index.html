@@ -1,0 +1,227 @@
+{% extends "base.html"%}
+{% block content %}
+<div class="content-wrapper">
+    <div class="w-container">
+        <div class="w-row">
+            <div class="w-hidden-small w-hidden-tiny w-col w-col-3">
+                <div class="white-wrapper">
+                    <img src="{{ url_for('static', filename='img/'+current_user.profile_picture ) }}" alt="" class="circle-profile">
+                    <h2 class="small_header">{{ current_user.user_name }}</h2>
+                    <div class="grey-rule"></div>
+                    <h2 class="small-heading">Bio</h2>
+                    <div class="feature-posts-list w-dyn-list">
+                        <div role="list" class="w-dyn-items">
+                            <div role="listitem" class="w-dyn-item">
+                                {{ current_user.bio |safe }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grey-rule"></div>
+                    <div class="social-link-group">
+                        <a href="#" class="social-icon-link w-inline-block">
+                            <img src="{{ url_for('static', filename='icon/facebook.svg') }}" alt="" width="25">
+                        </a>
+                        <a href="#" class="social-icon-link w-inline-block">
+                            <img src="{{ url_for('static', filename='icon/instagram.svg') }}" alt="" width="25">
+                        </a>
+                        <a href="#" class="social-icon-link w-inline-block">
+                            <img src="{{ url_for('static', filename='icon/tweeter.svg') }}" alt="" width="25">
+                        </a>
+                        <a href="#" class="social-icon-link w-inline-block">
+                            <img src="{{ url_for('static', filename='icon/linkedin.svg') }}" alt="" width="25">
+                        </a>
+                    </div>
+                    <p class="built-with-webflow">Built with 
+                        <a target="_blank" href="https://webflow.com/" class="webflow-link">Webflow</a>
+                    </p>
+                </div>
+            </div>
+            <div class="content-column w-col w-col-9">
+                <div class="w-dyn-list">
+                    <div role="list" class="w-dyn-items">
+                        <div role="listitem" class="w-dyn-item">
+                            <div data-w-id="53cc7567-513c-3103-cd72-dfb075f10bef" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg); transform-style: preserve-3d;" class="post-wrapper">
+                                <div class="post-content">
+                                    <div class="w-row">
+                                        <div class="w-col w-col-4 w-col-medium-4">
+                                            <a href="https://denali-template.webflow.io/posts/cafe-au-lait-turkish-doppio-ristretto" style="background-image:url(&quot;https://assets.website-files.com/5e4b1a54e48aed65701ff226/5e4b1a54e48aed3f261ff24a_photo-1441512673622-3eaa1c39ba28.jpg&quot;)" class="blog-image w-inline-block">
+                                            </a>
+                                        </div>
+                                        <div class="w-col w-col-8 w-col-medium-8">
+                                            <a href="https://denali-template.webflow.io/posts/cafe-au-lait-turkish-doppio-ristretto" class="blog-title-link w-inline-block">
+                                                <h2 class="blog-title">Wherever far wow thus a squirrel raccoon jeez jaguar this from along</h2>
+                                            </a>
+                                            <div class="details-wrapper">
+                                                <div class="post-info">June 25, 2020</div>
+                                                <div class="post-info">|</div>
+                                                <a href="https://denali-template.webflow.io/categories/art" class="post-info when-link">Art</a>
+                                            </div>
+                                            <div class="post-summary-wrapper">
+                                                <p class="post-summary">The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from 
+                                                    its origin would be the word "and" and the Little Blind
+                                                </p>
+                                                <a href="https://denali-template.webflow.io/posts/cafe-au-lait-turkish-doppio-ristretto" class="read-more-link">Read more...</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="listitem" class="w-dyn-item">
+                            <div data-w-id="53cc7567-513c-3103-cd72-dfb075f10bef" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg); transform-style: preserve-3d;" class="post-wrapper">
+                                <div class="post-content">
+                                    <div class="w-row">
+                                        <div class="w-col w-col-4 w-col-medium-4">
+                                            <a href="https://denali-template.webflow.io/posts/coffee-sugar-chicory-seasonal-espresso-barista-americano" style="background-image:url(&quot;https://assets.website-files.com/5e4b1a54e48aed65701ff226/5e4b1a54e48aeda1521ff24c_3f4eb74a.jpg&quot;)" class="blog-image w-inline-block">
+                                            </a>
+                                        </div>
+                                        <div class="w-col w-col-8 w-col-medium-8">
+                                            <a href="https://denali-template.webflow.io/posts/coffee-sugar-chicory-seasonal-espresso-barista-americano" class="blog-title-link w-inline-block">
+                                                <h2 class="blog-title">Coffee sugar, chicory seasonal espresso barista americano</h2>
+                                            </a>
+                                            <div class="details-wrapper">
+                                                <div class="post-info">June 25, 2020</div>
+                                                <div class="post-info">|</div>
+                                                <a href="https://denali-template.webflow.io/categories/music" class="post-info when-link">Music</a>
+                                            </div>
+                                            <div class="post-summary-wrapper">
+                                                <p class="post-summary">Arista, percolator, cream, aromatic, fair trade, breve body instant lungo blue mountain cappuccino. Americano aroma mug espresso latte crema milk 
+                                                    redeye acerbic. Galão robusta instant, decaffeinated, so fair trade wings.
+                                                </p>
+                                                <a href="https://denali-template.webflow.io/posts/coffee-sugar-chicory-seasonal-espresso-barista-americano" class="read-more-link">Read more...</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="listitem" class="w-dyn-item">
+                            <div data-w-id="53cc7567-513c-3103-cd72-dfb075f10bef" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg); transform-style: preserve-3d;" class="post-wrapper">
+                                <div class="post-content">
+                                    <div class="w-row">
+                                        <div class="w-col w-col-4 w-col-medium-4">
+                                            <a href="https://denali-template.webflow.io/posts/half-and-half-variety-milk-viennese-body-cappuccino" style="background-image:url(&quot;https://assets.website-files.com/5e4b1a54e48aed65701ff226/5e4b1a54e48aedf5821ff248_photo-1416934625760-d56f5e79f6fe.jpg&quot;)" class="blog-image w-inline-block">
+                                            </a>
+                                        </div>
+                                        <div class="w-col w-col-8 w-col-medium-8">
+                                            <a href="https://denali-template.webflow.io/posts/half-and-half-variety-milk-viennese-body-cappuccino" class="blog-title-link w-inline-block">
+                                                <h2 class="blog-title">According a funnily until pre-set or arrogant well cheerful</h2>
+                                            </a>
+                                            <div class="details-wrapper">
+                                                <div class="post-info">June 25, 2020</div>
+                                                <div class="post-info">|</div>
+                                                <a href="https://denali-template.webflow.io/categories/music" class="post-info when-link">Music</a>
+                                            </div>
+                                            <div class="post-summary-wrapper">
+                                                <p class="post-summary">Single shot cultivar beans as chicory caffeine. Medium brewed, milk extra that froth pumpkin spice mocha. Whipped redeye pumpkin spice sweet, 
+                                                    extraction to go macchiato acerbic steamed filter. Robusta grounds decaffeinated.
+                                                </p>
+                                                <a href="https://denali-template.webflow.io/posts/half-and-half-variety-milk-viennese-body-cappuccino" class="read-more-link">Read more...</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="listitem" class="w-dyn-item">
+                            <div data-w-id="53cc7567-513c-3103-cd72-dfb075f10bef" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg); transform-style: preserve-3d;" class="post-wrapper">
+                                <div class="post-content">
+                                    <div class="w-row">
+                                        <div class="w-col w-col-4 w-col-medium-4">
+                                            <a href="https://denali-template.webflow.io/posts/steamed-siphon-froth-mazagran-cafe-au-lait" style="background-image:url(&quot;https://assets.website-files.com/5e4b1a54e48aed65701ff226/5e4b1a54e48aed155e1ff249_photo-1416949929422-a1d9c8fe84af.jpg&quot;)" class="blog-image w-inline-block">
+                                            </a>
+                                        </div>
+                                        <div class="w-col w-col-8 w-col-medium-8">
+                                            <a href="https://denali-template.webflow.io/posts/steamed-siphon-froth-mazagran-cafe-au-lait" class="blog-title-link w-inline-block">
+                                                <h2 class="blog-title">Overlaid the jeepers uselessly much excluding</h2>
+                                            </a>
+                                            <div class="details-wrapper">
+                                                <div class="post-info">June 25, 2020</div>
+                                                <div class="post-info">|</div>
+                                                <a href="https://denali-template.webflow.io/categories/tech" class="post-info when-link">Tech</a>
+                                            </div>
+                                            <div class="post-summary-wrapper">
+                                                <p class="post-summary">Far far away, behind the word mountains, far from the countries Vokalia and
+                                                     Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. 
+                                                </p>
+                                                <a href="https://denali-template.webflow.io/posts/steamed-siphon-froth-mazagran-cafe-au-lait" class="read-more-link">Read more...</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="listitem" class="w-dyn-item">
+                            <div data-w-id="53cc7567-513c-3103-cd72-dfb075f10bef" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg); transform-style: preserve-3d;" class="post-wrapper">
+                                <div class="post-content">
+                                    <div class="w-row">
+                                        <div class="w-col w-col-4 w-col-medium-4">
+                                            <a href="https://denali-template.webflow.io/posts/coffee-variety-macchiato-as-organic-ut-variety-caffeine-americano" style="background-image:url(&quot;https://assets.website-files.com/5e4b1a54e48aed65701ff226/5e4b1a54e48aedf7791ff24b_photo-1443304895043-ef30921332c5.jpg&quot;)" class="blog-image w-inline-block">
+                                            </a>
+                                        </div>
+                                        <div class="w-col w-col-8 w-col-medium-8">
+                                            <a href="https://denali-template.webflow.io/posts/coffee-variety-macchiato-as-organic-ut-variety-caffeine-americano" class="blog-title-link w-inline-block">
+                                                <h2 class="blog-title">Coffee variety macchiato, as organic ut variety caffeine americano</h2>
+                                            </a>
+                                            <div class="details-wrapper">
+                                                <div class="post-info">June 25, 2020</div>
+                                                <div class="post-info">|</div>
+                                                <a href="https://denali-template.webflow.io/categories/travel" class="post-info when-link">Travel</a>
+                                            </div>
+                                            <div class="post-summary-wrapper">
+                                                <p class="post-summary">Saucer, crema carajillo, bar, mocha medium, latte cappuccino and espresso acerbic to go. Coffee, irish foam turkish coffee blue mountain seasonal.
+                                                     Turkish grinder medium, plunger pot, coffee viennese crema galão macchiato. 
+                                                </p>
+                                                <a href="https://denali-template.webflow.io/posts/coffee-variety-macchiato-as-organic-ut-variety-caffeine-americano" class="read-more-link">Read more...</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="button-wrapper">
+                    <a href="https://denali-template.webflow.io/all-posts" class="button w-button">More posts&nbsp;→</a>
+                </div>
+                <div class="sidebar-on-mobile">
+                    <div class="white-wrapper">
+                        <img src="{{ url_for('static', filename='icon/picture1.jpg') }}" alt="" class="circle-profile">
+                        <p class="site-description">Denali is a simple responsive blog template. Easily add new posts using the Editor or change layout and design using the Designer.</p>
+                        <div class="grey-rule"></div>
+                        <h2 class="small-heading">Featured Posts:</h2>
+                        <div class="feature-posts-list w-dyn-list">
+                            <div role="list" class="w-dyn-items">
+                                <div role="listitem" class="w-dyn-item">
+                                    <a href="https://denali-template.webflow.io/posts/half-and-half-variety-milk-viennese-body-cappuccino" class="small-post-link">According a funnily until pre-set or arrogant well cheerful</a>
+                                </div>
+                                <div role="listitem" class="w-dyn-item">
+                                    <a href="https://denali-template.webflow.io/posts/steamed-siphon-froth-mazagran-cafe-au-lait" class="small-post-link">Overlaid the jeepers uselessly much excluding</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grey-rule"></div>
+                        <div class="social-link-group">
+                            <a href="#" class="social-icon-link w-inline-block">
+                                <img src="{{ url_for('static', filename='icon/facebook.svg') }}" alt="" width="25">
+                            </a>
+                            <a href="#" class="social-icon-link w-inline-block">
+                                <img src="{{ url_for('static', filename='icon/instagram.svg') }}" alt="" width="25">
+                            </a>
+                            <a href="#" class="social-icon-link w-inline-block">
+                                <img src="{{ url_for('static', filename='icon/tweeter.svg') }}" alt="" width="25">
+                            </a>
+                            <a href="#" class="social-icon-link w-inline-block">
+                                <img src="{{ url_for('static', filename='icon/linkedin.svg') }}" alt="" width="25">
+                            </a>
+                        </div>
+                        <p class="built-with-webflow">Built with 
+                            <a target="_blank" href="https://webflow.com/" class="webflow-link">Webflow</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
