@@ -2,7 +2,7 @@ from datetime import MAXYEAR
 from wtforms.fields.core import BooleanField, SelectField
 from wtforms.fields.simple import SubmitField 
 from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError
-from wtforms.fields.html5 import DateField
+from wtforms.fields.html5 import DateField, TelField
 from Flask_Social_Media import db, bcrypt
 from flask_ckeditor import CKEditorField
 from flask_wtf import FlaskForm
@@ -44,5 +44,19 @@ class LoginForm(FlaskForm):
 	remember_me = BooleanField("Remember Me")
 	submit = SubmitField("Login")
 
+class AboutForm(FlaskForm):
+	about = CKEditorField('About my self', validators=[DataRequired()])
+	submit = SubmitField('Update')
 
-
+class EditProfile(FlaskForm):
+	first_name = StringField("First Name", validators=[Length(max=25)])
+	mid_name = StringField("Midle Name", validators=[Length(max=25)])
+	last_name = StringField("Last Name", validators=[Length(max=25)])
+	gender = SelectField("Gender",choices=[("M","Male"),("F","Female")], validators=[])
+	phone_number = StringField("Phone Number", validators=[Length(max=15)])
+	address = StringField("Address", validators=[Length(min=3, max=125)])
+	birth_day = DateField("Birth day", validators=[])
+	password = StringField("Password", validators=[])
+	submit = SubmitField("Update")
+	
+	

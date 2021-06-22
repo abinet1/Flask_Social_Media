@@ -1,16 +1,22 @@
-from flask import Flask, url_for, render_template, redirect
-from flask.helpers import flash
-from flask_login.utils import logout_user
-from wtforms.validators import Email
-from Flask_Social_Media import app, db, bcrypt
-from Flask_Social_Media.form import LoginForm, RegisterForm
+import os
+from flask import url_for, render_template, redirect, request
+from flask.helpers import flash, send_from_directory
+from flask_login.utils import login_required, logout_user
+from Flask_Social_Media import app, db, bcrypt, csrf
+from Flask_Social_Media.form import LoginForm, RegisterForm, AboutForm, EditProfile
 from Flask_Social_Media.models import User
-from flask_login import login_user, logout_user, current_user
-import phonenumbers
+from flask_login import login_user, logout_user, current_user, login_required
+from flask_ckeditor import upload_success, upload_fail
+# import phonenumbers
 
-@app.route('/', methods=['GET','POST'])
+#--------------------------------------------Home-------------------------------------------------------------------------------------------------
+@app.route('/')
+@login_required
 def index():
 	return render_template('index.html')
+
+
+#--------------------------------------------Authontication-------------------------------------------------------------------------------------------------
 
 @app.route('/login', methods=['GET','POST'])
 def login():
@@ -56,4 +62,52 @@ def signup():
 def log_out():
 	logout_user()
 	return redirect(url_for('login'))
-	
+
+
+#--------------------------------------------ABOUT-------------------------------------------------------------------------------------------------
+
+@app.route('/about', methods=['GET', 'POST'])
+@login_required
+def about():
+	form = AboutForm()
+	if form.validate_on_submit():
+		current_user.about=form.about.data
+		db.session.commit()
+		return redirect(url_for('index'))
+	return render_template('about.html', form=form)
+
+@app.route('/files/<filename>')
+def uploaded_files(filename):
+    path = app.config['UPLOADED_PATH']
+    return send_from_directory(path, filename)
+
+
+@app.route('/upload', methods=['POST'])
+def upload():
+    f = request.files.get('upload')
+    extension = f.filename.split('.')[-1].lower()
+    if extension not in ['jpg', 'gif', 'png', 'jpeg']:
+        return upload_fail(message='Image only!')
+    f.save(os.path.join(app.config['UPLOADED_PATH'], f.filename))
+    url = url_for('uploaded_files', filename=f.filename)
+    return upload_success(url=url)
+
+#-------------------------------------PROFILE--------------------------------------------------------------------------------------------------------
+
+@app.route('/profile', methods=['GET','POST'])
+@login_required
+def profile():
+	form=RegisterForm()
+	return render_template("profile.html", form=form)
+
+
+
+#-------------------------------------Contacts--------------------------------------------------------------------------------------------------------
+
+@app.route('/contacts',methods=['GET','POST'])
+@login_required
+def contacts():
+	freinds=[]
+	groups=[]
+	chanals=[]
+	return render_template('contacts.html',freinds=freinds,groups=groups,chanals=chanals)

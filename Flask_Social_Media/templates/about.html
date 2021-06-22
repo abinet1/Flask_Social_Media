@@ -1,0 +1,40 @@
+{% extends "base.html"%}
+{% block content %}
+
+
+<div class="content-column w-col w-col-9">
+    <div class="w-dyn-list">
+        <div role="list" class="w-dyn-items">
+            <div role="listitem" class="w-dyn-item">
+                <div data-w-id="53cc7567-513c-3103-cd72-dfb075f10bef" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg); transform-style: preserve-3d;" class="post-wrapper">
+                    <div class="post-content">
+                        <div class="w-row">
+                            {% if not current_user.about %}
+                                <div class="w-col w-col-10 w-col-medium-10">
+                                    <form method="post">
+                                        {{ form.csrf_token }}
+                                        {{ form.about }}
+                                        <br>
+                                        {{ form.submit }}
+                                    </form>
+                                </div>
+                            {% else %}
+                                <div class="w-col w-col-10 w-col-medium-10">
+                                    {{ current_user.about |safe }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{ ckeditor.load() }}
+{{ ckeditor.config(name='about') }}
+{{ ckeditor.config(width = 'auto') }}
+<a class="edit_about" >
+    <img href="{{ url_for('static', filename='icon/edit.png') }}" alt="" style="margin-right: 8px; width: 16px;">
+    <span id="edit_about_small">Edit About</span>
+</a>
+{% endblock %}

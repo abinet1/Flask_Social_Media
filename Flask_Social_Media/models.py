@@ -1,3 +1,5 @@
+from enum import unique
+from sqlalchemy.orm import undefer
 from Flask_Social_Media import db, login_manager
 from flask_login import UserMixin
 from datetime import datetime
@@ -24,3 +26,14 @@ class User(db.Model, UserMixin):
 
 	def __repr__(self):
 		return f"User('{self.id}','{self.first_name}','{self.last_name}','{self.phone_number}','{self.user_name}')"
+
+class Friend(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	sender_id = db.Column(db.Integer, nullable=False, unique=False)
+	reciver_id = db.Column(db.Integer, nullable=False, unique=False)
+	status = db.Column(db.String(25), nullable=False, unique=False)
+	request_date = db.Column(db.DateTime, nullable=False, unique=False, default=datetime.now)
+	confirm_date = db.Column(db.DateTime, nullable=True, unique=False)
+	
+
+
