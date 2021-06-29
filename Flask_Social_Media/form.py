@@ -59,4 +59,5 @@ class EditProfile(FlaskForm):
 	password = StringField("Password", validators=[])
 	submit = SubmitField("Update")
 	
-	
+class PostForm(FlaskForm):
+	title = StringField("Title", validators=[Length(max=120)])

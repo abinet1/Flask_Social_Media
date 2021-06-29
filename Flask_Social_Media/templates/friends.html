@@ -1,0 +1,78 @@
+{% extends "base.html"%}
+{% block content %}
+
+<div class="content-column w-col w-col-9">
+    <div data-w-id="53cc7567-513c-3103-cd72-dfb075f10bef" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg); transform-style: preserve-3d;" class="post-wrapper">
+        <div role="list" class="w-dyn-items w-row" >
+            <section id="menu-list" class="section-padding">
+                <div class="container">
+                    <div class="col-md-12 text-center" id="menu-flters"  style="background-color:#fff;">
+                        <ul>
+                            {%if requests %}
+                                <li><a href="#breakfast-test-1" class="filter filter-breakfast"data-filter=".breakfast">friend requests</a></li>
+                            {% endif %}
+                            {%if friends %}
+                                <li><a href="#breakfast-test-2" class="filter filter-dinner"data-filter=".dinner">Find friends</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div>
+                        {%if requests %}
+                            <div class="col-md-12 mab-35">
+                                <h2 class="small-header">
+                                    friend requests 
+                                </h2>
+                            </div>
+                            <div id="breakfast-test-1">
+                                {% for request in requests %}
+                                    <div class="breakfast menu-restaurant card-board">
+                                        <span class="clearfix-heght">
+                                            <span class="clearfix ">
+                                                <a href="#" data-meal-image="#" class="menu-title">{{request.user_name}}</a>
+                                                <span style="left:166px; right:44px;" class="menu-line"></span>
+                                                <span class="menu-price">$10.99</span>
+                                            </span>
+                                            <span class="menu-subtitle">{{request.bio |safe}}</span>
+                                        </span>
+                                        <span>
+                                            <a href="{{ url_for('confirm_User',user_id=request.id) }}" type="button" class="btn btn-success confirm" name='confirm' value="confirm">Contact</a>
+                                            <a href="{{ url_for('delete_request',user_id=request.id) }}" type="button" class="btn btn-danger delete" name='delete' value="delete">delete</a>
+                                        </span>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        {% if friends %}
+                            <div class="col-md-12 mab-35">
+                                <h2 class="small-header">
+                                    find friends 
+                                </h2>
+                            </div>
+                            <div id="breakfast-test-2">
+                                {% for friend in friends %}
+                                    <div class="breakfast menu-restaurant card-board">
+                                        <span class="clearfix-heght">
+                                            <span class="clearfix ">
+                                                <a href="#" data-meal-image="#" class="menu-title">{{friend.user_name}}</a>
+                                                <span style="left:166px; right:44px;" class="menu-line"></span>
+                                                <span class="menu-price">$10.99</span>
+                                            </span>
+                                            <span class="menu-subtitle">{{friend.bio |safe}}</span>
+                                        </span>
+                                        <span>
+                                            <a href="{{ url_for('add_friends',user_id=friend.id) }}" class="btn btn-success confirm" name='add' value="add">add friend</a>
+                                            <a href="#" class="btn btn-danger delete" name='send' value="send">Follow</a>
+                                        </span>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        
+                    </div>        
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,19 +1,75 @@
 import os
+import random
 from flask import url_for, render_template, redirect, request
 from flask.helpers import flash, send_from_directory
 from flask_login.utils import login_required, logout_user
 from Flask_Social_Media import app, db, bcrypt, csrf
-from Flask_Social_Media.form import LoginForm, RegisterForm, AboutForm, EditProfile
+from Flask_Social_Media.form import LoginForm, RegisterForm, AboutForm, EditProfile, PostForm
 from Flask_Social_Media.models import User
 from flask_login import login_user, logout_user, current_user, login_required
 from flask_ckeditor import upload_success, upload_fail
 # import phonenumbers
 
 #--------------------------------------------Home-------------------------------------------------------------------------------------------------
+
 @app.route('/')
 @login_required
 def index():
 	return render_template('index.html')
+
+
+
+#--------------------------------------------Friends-------------------------------------------------------------------------------------------------
+
+@app.route('/friends', methods=['GET','POST'])
+@login_required
+def friends():
+	requests=current_user.requests.all()
+	find_freinds=current_user.find_friend()
+	random.shuffle(find_freinds)
+	return render_template('friends.html',friends=find_freinds,requests=requests)
+
+@app.route('/friends/confirm/<int:user_id>',methods=['GET','POST'])
+@login_required
+def confirm_User(user_id):
+	u2 = User.query.filter_by(id=user_id).first()
+	current_user.confirm(u2)
+	db.session.commit()
+	return redirect(url_for('friends'))
+
+@app.route('/friends/delete/<int:user_id>',methods=['GET','POST'])
+@login_required
+def delete_request(user_id):
+	try:
+		u2 = User.query.filter_by(id=user_id).first()
+		resultetion=current_user.delete_request(u2)
+		db.session.commit()
+		return redirect(url_for('friends'))
+	except:
+		return redirect(url_for('friends'))
+
+@app.route('/friends/add/<int:user_id>',methods=['GET','POST'])
+@login_required
+def add_friends(user_id):
+	try:
+		u2 = User.query.filter_by(id=user_id).first()
+		resultetion=current_user.send_request(u2)
+		db.session.commit()
+		return redirect(url_for('friends'))
+	except:
+		return redirect(url_for('friends'))
+
+#--------------------------------------------profile like and comment------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------Posts----------------------------------------------------------------------------------------------------------
+@app.route("/addpost",methods=['GET','POST'])
+@login_required
+def add_post():
+	form=PostForm()
+	return render_template('addpost.html',form=form)
+
+#--------------------------------------------Chats-------------------------------------------------------------------------------------------------
 
 
 #--------------------------------------------Authontication-------------------------------------------------------------------------------------------------
