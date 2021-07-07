@@ -1,0 +1,133 @@
+{% extends "base.html"%}
+{% block content%}
+<style>
+    #comment-session {
+        visibility: visible;
+    }
+    #replay-session {
+        visibility: hidden;
+    }
+</style>
+<div class="content-column w-col w-col-9">
+    <div class="w-dyn-list">
+        <div role="list" class="w-dyn-items">
+            <div role="listitem" class="w-dyn-item">
+                <div data-w-id="53cc7567-513c-3103-cd72-dfb075f10bef" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg); transform-style: preserve-3d;" class="post-wrapper">
+                    <div class="post-content">
+                        <h1>{{ post.title |safe}}</h1>
+                        <div class="details-wrapper">
+                            <div class="post-info">{{ post.lastupdate }}</div>
+                            <div class="post-info">|</div>
+                                <a href="" class="post-info when-link">Art</a>
+                            </div>
+                            <div class="grey-rule"></div>
+                            <div class="body-copy w-richtext">
+                                {{ post.context |safe}}
+                                <h2>{{post.title}}</h2>
+                                {{post.article |safe}}
+                            </div>
+                        </div>
+                        <div class="social-link-group" style="margin-left: 40%; ">
+                            <a style="justify-content: flex-start;" href="{{ url_for('post_like', post_id=post.id) }}" class="so-icon-link w-inline-block">
+                                <img src="{{ url_for('static', filename='icon/like.svg') }}" alt="" width="30">
+                            </a>
+                            <a style="justify-content: flex-start;"href="{{ url_for('post_like', post_id=post.id) }}" class="so-icon-link w-inline-block">
+                                <img src="{{ url_for('static', filename='icon/share.svg') }}" alt="" width="30">
+                            </a>
+                            <br>
+                            {% if post.like %}
+                                <small>{{post.like|length}}</small>
+                            {% endif %}
+                        </div>
+                        <div class="grey-rule" style="margin-left:35%;"></div>
+                        <div class="section contact-banner-section" style="margin-top: -5px;">
+                            <div class="container-fluid contact-banner-container">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-9">
+                                        <div class="section-title m-b-20 pb-0 aos-init aos-animate" data-aos="fade-up" data-aos-duration="1100">
+                                            <h2 class="title-ss">Comment</h2>
+                                            <span class="thick-border"></span>
+                                        </div>
+                                        <div class="contact-form" id="comment-session">
+                                            <div class="row m-b-n30">
+                                                <form method="POST">
+                                                    {{ commentform.hidden_tag() }}
+                                                    <div class="col-12 m-b-30 " data-aos="fade-up" data-aos-duration="1900">
+                                                        {{commentform.contant(placeholder="comment")}}
+                                                    </div>
+                                                    <div class="col-12 text-start m-b-30 aos-init aos-animate" data-aos="fade-up" data-aos-duration="2100">
+                                                        {{ commentform.submit(class="btn btn-dark btn-hover-primary") }}
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="contact-form" id="replay-session">
+                                            <div class="row m-b-n30">
+                                                <!-- <form method="POST"> -->
+                                                    <!-- #{{ replayform.hidden_tag() }} -->
+                                                    <div class="col-12 m-b-30 " data-aos="fade-up" data-aos-duration="1900">
+                                                        <!-- #{{replayform.contant(placeholder="comment")}} -->
+                                                    </div>
+                                                    <div class="col-12 text-start m-b-30 aos-init aos-animate" data-aos="fade-up" data-aos-duration="2100">
+                                                        <!-- #{{ replayform.submit(class="btn btn-dark btn-hover-primary") }} -->
+                                                        <button class="btn btn-dark btn-hover-primary" style="display:inline-block;">Replay</button>
+                                                        <button class="btn btn-dark btn-hover-primary" id="comment-btn">back</button>
+                                                    </div>
+
+                                                <!-- </form> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-banner-wrapper"style=" padding-top: 80px; padding-left:5px;">
+                                <div style="height: 350px; scrollbar-width: thin; overflow-y: scroll;">
+                                    {% for comment in comments %}
+                                        <div style="margin-top: 10px;">
+                                            <div style="display: flex; justify-content: space-between; ">
+                                                <span style="font-weight: bold;">{{ comment.user_comment.user_name }}</span>
+                                                <button style="font-weight: bold;padding-right:10px; background:white; color:#abcff2;" id="replay-btn">replay</button>
+                                            </div>
+                                            <br>
+                                            <span>{{ comment.contant }}</span>
+                                            {% for replay in comment.commented %}
+                                                <small class="text-muted">replay</small>
+                                                <div style="margin-top: 5px; margin-left:10px;">
+                                                    <div style="display: flex; justify-content: space-between; ">
+                                                        <span style="font-weight: bold;">{{ replay.user_comment.user_name }}</span>
+                                                        <a href="" style="font-weight: bold;padding-right:10px;">replay</a>
+                                                    </div>
+                                                    <br>
+                                                    <span>{{ replay.contant }}</span>
+                                                </div>    
+                                            {% endfor %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let replay_btns = document.getElementById('replay-btn')
+    let comment_btns = document.getElementById('comment-btn')
+    
+    replay_btns.addEventListener('click', function() {
+        let replay_session = document.getElementById('replay-session')
+        let comment_session = document.getElementById('comment-session')
+        comment_session.style.visibility='hidden'
+        replay_session.style.visibility='visible'
+    })
+    comment_btns.addEventListener('click', function(){
+        let replay_session = document.getElementById('replay-session')
+        let comment_session = document.getElementById('comment-session')
+        replay_session.style.visibility='hidden'
+        comment_session.style.visibility='visible'
+    })
+</script>
+{% endblock %}

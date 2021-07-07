@@ -1,6 +1,7 @@
 from datetime import MAXYEAR
-from wtforms.fields.core import BooleanField, SelectField
-from wtforms.fields.simple import SubmitField 
+from flask.helpers import flash
+from wtforms.fields.core import BooleanField, FormField, IntegerField, SelectField
+from wtforms.fields.simple import SubmitField, TextAreaField 
 from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError
 from wtforms.fields.html5 import DateField, TelField
 from Flask_Social_Media import db, bcrypt
@@ -48,16 +49,48 @@ class AboutForm(FlaskForm):
 	about = CKEditorField('About my self', validators=[DataRequired()])
 	submit = SubmitField('Update')
 
-class EditProfile(FlaskForm):
+# class EditProfile(FlaskForm):
+# 	first_name = StringField("First Name", validators=[Length(max=25), DataRequired()])
+# 	mid_name = StringField("Midle Name", validators=[Length(max=25), DataRequired()])
+# 	last_name = StringField("Last Name", validators=[Length(max=25), DataRequired()])
+# 	gender = SelectField("Gender",choices=[("M","Male"),("F","Female")], validators=[DataRequired()])
+# 	phone_number = StringField("Phone Number", validators=[Length(max=15), DataRequired()])
+# 	address = StringField("Address", validators=[Length(min=3, max=125), DataRequired()])
+# 	birth_day = DateField("Birth day", validators=[DataRequired()])
+# 	password = StringField("Password", validators=[DataRequired()])
+# 	submit = SubmitField("Update")
+	
+class PostForm(FlaskForm):
+	title = StringField("Title", validators=[Length(max=120)])
+	context = TextAreaField("Context", validators=[Length(max=120,min=3)])
+	article = CKEditorField("Article", validators=[])
+	image = StringField('Images', validators=[])
+	catagory = StringField('Images', validators=[])
+	submit = SubmitField('Post')
+
+
+class ProfileForm(FlaskForm):
 	first_name = StringField("First Name", validators=[Length(max=25)])
 	mid_name = StringField("Midle Name", validators=[Length(max=25)])
 	last_name = StringField("Last Name", validators=[Length(max=25)])
 	gender = SelectField("Gender",choices=[("M","Male"),("F","Female")], validators=[])
 	phone_number = StringField("Phone Number", validators=[Length(max=15)])
+	email = StringField("Email", validators=[Email(), Length(min=3, max=125)])
 	address = StringField("Address", validators=[Length(min=3, max=125)])
+	bio = CKEditorField("Bio", validators=[])
 	birth_day = DateField("Birth day", validators=[])
+	user_name = StringField("User name", validators=[Length(min=3,max=30)])
 	password = StringField("Password", validators=[])
-	submit = SubmitField("Update")
-	
-class PostForm(FlaskForm):
-	title = StringField("Title", validators=[Length(max=120)])
+	submit = SubmitField("Update Profile")
+
+
+class CommentForm(FlaskForm):
+	contant = TextAreaField("Comment", validators=[DataRequired()])
+	submit = SubmitField("Comment")
+
+class ReplayForm(FlaskForm):
+	comment = IntegerField("Comment id", validators=[DataRequired()])
+	contant = TextAreaField("Comment", validators=[DataRequired()])
+	submit = SubmitField("Replay")
+
+    

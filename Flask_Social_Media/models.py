@@ -1,5 +1,4 @@
 from enum import unique
-from sqlalchemy.orm import undefer
 from Flask_Social_Media import db, login_manager
 from flask_login import UserMixin
 from datetime import datetime
@@ -10,20 +9,25 @@ def load_user(user_id):
 
 requests = db.Table('requests',
     db.Column('sender_id', db.Integer, db.ForeignKey('user.id')),
-    db.Column('reciver_id', db.Integer, db.ForeignKey('user.id'))
+    db.Column('reciver_id', db.Integer, db.ForeignKey('user.id')),
+    # db.Column(db.DateTime,nullable=False, unique=False, default=datetime.now.utc)
 )
 
 friends = db.Table('friends',
     db.Column('first_id', db.Integer, db.ForeignKey('user.id')),
-    db.Column('second_id', db.Integer, db.ForeignKey('user.id'))
+    db.Column('second_id', db.Integer, db.ForeignKey('user.id')),
+    # db.Column(db.DateTime,nullable=False, unique=False, default=datetime.now.utc)
 )
 
-class Post(db.Model):
-    title = db.Column(db.String(120), nullable=False, unique=False)
-    content = db.Column(db.Text, nullable=False, unique=False)
-    article = db.Column(db.Text, nullable=False, unique=False)
-    postdate = db.Column(db.DateTime, nullable=False, unique=False, default=datetime.now.utc)
-    lastupdate = db.Column(db.DateTime, nullable=False, unique=False, default=datetime.now.utc)
+follows = db.Table('follows',
+    db.Column('first_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('second_id', db.Integer, db.ForeignKey('user.id')),
+)
+
+comments = db.Table('comments',
+    db.Column('first_id', db.Integer, db.ForeignKey('comment.id')),
+    db.Column('second_id', db.Integer, db.ForeignKey('comment.id')),
+)
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -38,6 +42,9 @@ class User(db.Model, UserMixin):
     bio = db.Column(db.Text, nullable=True, unique=False)
     birth_day = db.Column(db.DateTime, nullable=False)
     about = db.Column(db.Text, nullable=True, unique=False)
+    posts = db.relationship('Post',backref="auther", lazy=True)
+    comment = db.relationship('Comment',backref="user_comment", lazy=True)
+    like = db.relationship('PostLike',backref="user_like", lazy=True)
     user_name = db.Column(db.String(30), nullable=False, unique=False)
     password = db.Column(db.String(60), nullable=False, unique=False)
     requested = db.relationship('User', 
@@ -52,6 +59,13 @@ class User(db.Model, UserMixin):
                                 primaryjoin=(friends.c.first_id==id),
                                 secondaryjoin=(friends.c.second_id==id),
                                 backref=db.backref('friend',lazy='dynamic'),
+                                lazy='dynamic')
+
+    followed = db.relationship('User',
+                                secondary=follows,
+                                primaryjoin=(follows.c.first_id==id),
+                                secondaryjoin=(follows.c.second_id==id),
+                                backref=db.backref('follows',lazy='dynamic'),
                                 lazy='dynamic')
     
     def send_request(self, user):
@@ -89,7 +103,6 @@ class User(db.Model, UserMixin):
                 responce.append(user)
         return responce
 
-
     def is_requested(self, user):
         return self.requested.filter(requests.c.reciver_id == user.id).count() > 0
     
@@ -105,8 +118,59 @@ class User(db.Model, UserMixin):
         else:
             return False
 
+    def follow_User(self, user):
+        if not (self.is_followed(user)):
+            self.followed.append(user)
+            return self
+        elif self.is_followed(user):
+            self.followed.remove(user)
+
+    def is_followed(self, user):
+        return self.followed.filter(follows.c.second_id == user.id).count() > 0
+
     def __repr__(self):
         return f"User('{self.id}','{self.first_name}','{self.last_name}','{self.phone_number}','{self.user_name}')"
 
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'),nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'),nullable=False)
+    commented = db.relationship('Comment',
+                                secondary=comments,
+                                primaryjoin=(comments.c.first_id==id),
+                                secondaryjoin=(comments.c.second_id==id),
+                                backref=db.backref('comments',lazy='dynamic'),
+                                lazy='dynamic')
+    date = db.Column(db.DateTime, nullable=False, unique=False, default=datetime.utcnow)
+    contant = db.Column(db.Text, nullable=False, unique=False)
+    
+    def add_replay(self, replay):
+        self.commented.append(replay)
 
+    def all_replays(self):
+       return self.commented.all()
 
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(120), nullable=False, unique=False)
+    context = db.Column(db.Text, nullable=False, unique=False)
+    article = db.Column(db.Text, nullable=False, unique=False)
+    catagory = db.Column(db.String(10), nullable=False, unique=False, default="For All")
+    image = db.Column(db.String(255), nullable=False, unique=False, default="picture1.jpg")
+    postdate = db.Column(db.DateTime, nullable=False, unique=False, default=datetime.utcnow)
+    lastupdate = db.Column(db.DateTime, nullable=False, unique=False, default=datetime.utcnow)
+    comment = db.relationship('Comment',backref="post_comment", lazy=True)
+    like = db.relationship('PostLike',backref="post_like", lazy=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'),
+        nullable=False)
+    
+    
+    def __repr__(self):
+        return f"post id('{self.id}','{self.title}','{self.postdate}','{self.lastupdate}','{self.user_id}','{self.auther.user_name}')"
+
+class PostLike(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'),nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'),nullable=False)
+
+    

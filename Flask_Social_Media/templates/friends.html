@@ -35,7 +35,7 @@
                                             <span class="menu-subtitle">{{request.bio |safe}}</span>
                                         </span>
                                         <span>
-                                            <a href="{{ url_for('confirm_User',user_id=request.id) }}" type="button" class="btn btn-success confirm" name='confirm' value="confirm">Contact</a>
+                                            <a href="{{ url_for('confirm_User',user_id=request.id) }}" type="button" class="btn btn-success confirm" name='confirm' value="confirm">Confirm</a>
                                             <a href="{{ url_for('delete_request',user_id=request.id) }}" type="button" class="btn btn-danger delete" name='delete' value="delete">delete</a>
                                         </span>
                                     </div>
@@ -56,13 +56,12 @@
                                             <span class="clearfix ">
                                                 <a href="#" data-meal-image="#" class="menu-title">{{friend.user_name}}</a>
                                                 <span style="left:166px; right:44px;" class="menu-line"></span>
-                                                <span class="menu-price">$10.99</span>
                                             </span>
                                             <span class="menu-subtitle">{{friend.bio |safe}}</span>
                                         </span>
                                         <span>
                                             <a href="{{ url_for('add_friends',user_id=friend.id) }}" class="btn btn-success confirm" name='add' value="add">add friend</a>
-                                            <a href="#" class="btn btn-danger delete" name='send' value="send">Follow</a>
+                                            <a href="{{ url_for('follow',user_id=friend.id) }}" class="btn btn-primary delete" name='send' value="send">Follow</a>
                                         </span>
                                     </div>
                                 {% endfor %}

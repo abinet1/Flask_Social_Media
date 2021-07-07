@@ -1,0 +1,46 @@
+{% extends "base.html"%}
+{% block content %}
+<div class="content-column w-col w-col-9">
+    <div class="w-dyn-list">
+        <div role="list" class="w-dyn-items">
+            <div role="listitem" class="w-dyn-item">
+                <div data-w-id="53cc7567-513c-3103-cd72-dfb075f10bef" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg); transform-style: preserve-3d;" class="post-wrapper">
+                    <div class="post-content">
+                        <div class="names-field" style="text-align: center;">
+                            <h2 class="small_heading">Edit Post</h2>
+                        </div>
+                        <form action="" method="POST">
+                            {{ form.hidden_tag() }}
+                            <span style="margin-left: 25px;">{{ form.title.label}}</span>
+                            <div class="label phone-number input-group">
+                                {% if form.title.errors %}
+                                    {{ form.title(placeholder= form.title.data , class="username is-invalid form-control user-input")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.title.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}      
+                                    {{ form.title(placeholder=form.title.data, class="form-control user-input") }}
+                                {% endif %}
+                            </div>
+                            <span style="margin-left: 25px;">{{ form.context.label}}</span>
+                            <div class="label input-group">
+                                {{ form.context(placeholder=form.context.data , class="form-control user-input", style="width:auto;")}}
+                            </div>
+                            <span style="margin-left: 25px;">{{ form.article.label}}</span>
+                            <div class="label input-group">
+                                {{ form.article }}    
+                            </div>
+                            {{ form.submit(type='submit', class="btn", style='background-color:#f0f0f0;')}}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{ ckeditor.load() }}
+{{ ckeditor.config(name='article') }}
+{{ ckeditor.config(width = 'auto' ) }}
+{% endblock %}
