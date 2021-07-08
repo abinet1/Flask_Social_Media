@@ -27,83 +27,78 @@
                                 {{post.article |safe}}
                             </div>
                         </div>
-                        <div class="social-link-group" style="margin-left: 40%; ">
+                        <div class="social-link-group" style="margin-left: 37%; ">
                             <a style="justify-content: flex-start;" href="{{ url_for('post_like', post_id=post.id) }}" class="so-icon-link w-inline-block">
                                 <img src="{{ url_for('static', filename='icon/like.svg') }}" alt="" width="30">
                             </a>
-                            <a style="justify-content: flex-start;"href="{{ url_for('post_like', post_id=post.id) }}" class="so-icon-link w-inline-block">
+                            {% if post.like %}
+                                <small>{{post.like|length}}</small>
+                            {% endif %}
+                            <a style="justify-content: flex-start; margin-left:20px;"href="{{ url_for('post_like', post_id=post.id) }}" class="so-icon-link w-inline-block">
                                 <img src="{{ url_for('static', filename='icon/share.svg') }}" alt="" width="30">
                             </a>
-                            <br>
                             {% if post.like %}
                                 <small>{{post.like|length}}</small>
                             {% endif %}
                         </div>
                         <div class="grey-rule" style="margin-left:35%;"></div>
-                        <div class="section contact-banner-section" style="margin-top: -5px;">
-                            <div class="container-fluid contact-banner-container">
-                                <div class="row">
-                                    <div class="col-md-12 col-lg-9">
-                                        <div class="section-title m-b-20 pb-0 aos-init aos-animate" data-aos="fade-up" data-aos-duration="1100">
-                                            <h2 class="title-ss">Comment</h2>
-                                            <span class="thick-border"></span>
-                                        </div>
-                                        <div class="contact-form" id="comment-session">
-                                            <div class="row m-b-n30">
-                                                <form method="POST">
-                                                    {{ commentform.hidden_tag() }}
-                                                    <div class="col-12 m-b-30 " data-aos="fade-up" data-aos-duration="1900">
-                                                        {{commentform.contant(placeholder="comment")}}
-                                                    </div>
-                                                    <div class="col-12 text-start m-b-30 aos-init aos-animate" data-aos="fade-up" data-aos-duration="2100">
-                                                        {{ commentform.submit(class="btn btn-dark btn-hover-primary") }}
-                                                    </div>
-                                                </form>
+                        <div class="" style="margin-top: -5px;">
+                            <div  class="comment-box-part">
+                                <div class="" data-aos="fade-up" data-aos-duration="1100">
+                                    <h2 style="padding-left: 32%;">Comment</h2>
+                                    <span class="thick-border"></span>
+                                </div>
+                                <div class="contact-form" id="comment-session">
+                                    <div class="" width="100%">
+                                        <form method="POST">
+                                            {{ commentform.hidden_tag() }}
+                                            <div class="col-12 m-b-30 " data-aos="fade-up" data-aos-duration="1900">
+                                                {{commentform.contant(placeholder="comment", class="user-input username", style="width:80%; padding-left:10%;height:200px;")}}
                                             </div>
-                                        </div>
-                                        <div class="contact-form" id="replay-session">
-                                            <div class="row m-b-n30">
-                                                <!-- <form method="POST"> -->
-                                                    <!-- #{{ replayform.hidden_tag() }} -->
-                                                    <div class="col-12 m-b-30 " data-aos="fade-up" data-aos-duration="1900">
-                                                        <!-- #{{replayform.contant(placeholder="comment")}} -->
-                                                    </div>
-                                                    <div class="col-12 text-start m-b-30 aos-init aos-animate" data-aos="fade-up" data-aos-duration="2100">
-                                                        <!-- #{{ replayform.submit(class="btn btn-dark btn-hover-primary") }} -->
-                                                        <button class="btn btn-dark btn-hover-primary" style="display:inline-block;">Replay</button>
-                                                        <button class="btn btn-dark btn-hover-primary" id="comment-btn">back</button>
-                                                    </div>
-
-                                                <!-- </form> -->
+                                            <div class="col-12 text-start m-b-30 aos-init aos-animate" data-aos="fade-up" data-aos-duration="2100">
+                                                {{ commentform.submit(class="btn btn-dark btn-hover-primary user-input username") }}
                                             </div>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="contact-banner-wrapper"style=" padding-top: 80px; padding-left:5px;">
-                                <div style="height: 350px; scrollbar-width: thin; overflow-y: scroll;">
-                                    {% for comment in comments %}
-                                        <div style="margin-top: 10px;">
-                                            <div style="display: flex; justify-content: space-between; ">
-                                                <span style="font-weight: bold;">{{ comment.user_comment.user_name }}</span>
-                                                <button style="font-weight: bold;padding-right:10px; background:white; color:#abcff2;" id="replay-btn">replay</button>
+                                <!-- <div class="contact-form" id="replay-session">
+                                        <form method="POST">
+                                            #{{ replayform.hidden_tag() }}
+                                            <div class="col-12 m-b-30 " data-aos="fade-up" data-aos-duration="1900">
+                                                #{{replayform.contant(placeholder="comment")}}
                                             </div>
-                                            <br>
-                                            <span>{{ comment.contant }}</span>
-                                            {% for replay in comment.commented %}
-                                                <small class="text-muted">replay</small>
-                                                <div style="margin-top: 5px; margin-left:10px;">
-                                                    <div style="display: flex; justify-content: space-between; ">
-                                                        <span style="font-weight: bold;">{{ replay.user_comment.user_name }}</span>
-                                                        <a href="" style="font-weight: bold;padding-right:10px;">replay</a>
-                                                    </div>
-                                                    <br>
-                                                    <span>{{ replay.contant }}</span>
-                                                </div>    
-                                            {% endfor %}
+                                            <div class="col-12 text-start m-b-30 aos-init aos-animate" data-aos="fade-up" data-aos-duration="2100">
+                                                #{{ replayform.submit(class="btn btn-dark btn-hover-primary") }}
+                                                <button class="btn btn-dark btn-hover-primary" style="display:inline-block;">Replay</button>
+                                                <button class="btn btn-dark btn-hover-primary" id="comment-btn">back</button>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div style="max-height: 1050px; height: min-content; scrollbar-width: thin; overflow-y: scroll; margin-top:100px;padding-left:10%;">
+                                {% for comment in comments %}
+                                    <div style="margin-top: 10px;">
+                                        <div style="display: flex; justify-content: space-between; ">
+                                            <span style="font-weight: bold;">{{ comment.user_comment.user_name }}</span>
+                                            <!-- <button style="font-weight: bold;padding-right:10px; background:white; color:#abcff2;" id="replay-btn">replay</button> -->
                                         </div>
-                                    {% endfor %}
-                                </div>
+                                        <br>
+                                        <span>{{ comment.contant }}</span>
+                                        {% for replay in comment.commented %}
+                                            <small class="text-muted">replay</small>
+                                            <div style="margin-top: 5px; margin-left:10px;">
+                                                <div style="display: flex; justify-content: space-between; ">
+                                                    <span style="font-weight: bold;">{{ replay.user_comment.user_name }}</span>
+                                                    <a href="" style="font-weight: bold;padding-right:10px;">reply</a>
+                                                </div>
+                                                <br>
+                                                <span>{{ replay.contant }}</span>
+                                            </div>    
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
                             </div>
                         </div>
                         <br>

@@ -62,10 +62,9 @@ class AboutForm(FlaskForm):
 	
 class PostForm(FlaskForm):
 	title = StringField("Title", validators=[Length(max=120)])
-	context = TextAreaField("Context", validators=[Length(max=120,min=3)])
+	context = TextAreaField("Context", validators=[])
 	article = CKEditorField("Article", validators=[])
-	image = StringField('Images', validators=[])
-	catagory = StringField('Images', validators=[])
+	catagory = StringField('Catagory', validators=[])
 	submit = SubmitField('Post')
 
 

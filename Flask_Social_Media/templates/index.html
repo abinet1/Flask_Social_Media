@@ -30,7 +30,8 @@
                         <div class="post-content">
                             <div class="w-row">
                                 <div class="w-col w-col-4 w-col-medium-4">
-                                    <a href="{{ url_for('view_post',post_id=post.id) }}" style="background-image:url(&quot;https://assets.website-files.com/5e4b1a54e48aed65701ff226/5e4b1a54e48aed3f261ff24a_photo-1441512673622-3eaa1c39ba28.jpg&quot;)" class="blog-image w-inline-block">
+                                    <a href="{{ url_for('view_post',post_id=post.id) }}" class="blog-image">
+                                        <img src="{{ url_for('static',filename='img/'+post.image) }}" style="height:max-content;">
                                     </a>
                                 </div>
                                 <div class="w-col w-col-8 w-col-medium-8">
@@ -38,9 +39,9 @@
                                         <h2 class="blog-title">{{post.title}}</h2>
                                     </a>
                                     <div class="details-wrapper">
-                                        <div class="post-info">{{post.postdate}}</div>
+                                        <div class="post-info">{{post.postdate.strftime("%Y-%m-%d  %H:%M")}}</div>
                                         <div class="post-info">|</div>
-                                        <a href="https://denali-template.webflow.io/categories/art" class="post-info when-link">Art</a>
+                                        <a href="{{ url_for('view_post',post_id=post.id) }}" class="post-info when-link">Art</a>
                                     </div>
                                     <div class="post-summary-wrapper">
                                         <p class="post-summary">{{post.context |safe}}
@@ -65,7 +66,8 @@
                         <div class="post-content">
                             <div class="w-row">
                                 <div class="w-col w-col-4 w-col-medium-4">
-                                    <a href="{{ url_for('view_post',post_id=post.id) }}" style="background-image:url(&quot;https://assets.website-files.com/5e4b1a54e48aed65701ff226/5e4b1a54e48aed3f261ff24a_photo-1441512673622-3eaa1c39ba28.jpg&quot;)" class="blog-image w-inline-block">
+                                    <a href="{{ url_for('view_post',post_id=post.id) }}" class="blog-image w-inline-block">
+                                        <img src="{{ url_for('static',filename='img/'+post.image) }}" style="height: fit-content;">
                                     </a>
                                 </div>
                                 <div class="w-col w-col-8 w-col-medium-8">
@@ -73,9 +75,9 @@
                                         <h2 class="blog-title">{{post.title}}</h2>
                                     </a>
                                     <div class="details-wrapper">
-                                        <div class="post-info">{{post.postdate}}</div>
+                                        <div class="post-info">{{post.postdate.strftime("%Y-%m-%d %H:%M")}}</div>
                                         <div class="post-info">|</div>
-                                        <a href="https://denali-template.webflow.io/categories/art" class="post-info when-link">Art</a>
+                                        <a href="{{ url_for('view_post',post_id=post.id) }}" class="post-info when-link">Art</a>
                                     </div>
                                     <div class="post-summary-wrapper">
                                         <p class="post-summary">{{post.context |safe}}
@@ -99,19 +101,25 @@
     <div class="post-group w-dyn-list" id="add-post">
         <div role="list" class="w-dyn-items">
             <div role="listitem" class="w-dyn-item">
-                <div data-w-id="53cc7567-513c-3103-cd72-dfb075f10bef" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg); transform-style: preserve-3d; height: 450px;" class="post-wrapper">
+                <div data-w-id="53cc7567-513c-3103-cd72-dfb075f10bef" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg); transform-style: preserve-3d; height: 750px;" class="post-wrapper">
                     <div class="post-content">
                         <div class="w-col w-col-10 w-col-medium-10">
                             <form method="post">
                                 {{ form.csrf_token }}
-                                {{ form.title }}
-                                {{ form.context }}
-                                {{ form.auther }}
+                                {{ form.title.label }}
+                                {{ form.title(class="user-input username", placeholder='Title', style="width: 70%; margin-bottom:10px;") }}
+                                <br>
+                                <br>
+                                {{ form.catagory.label }}
+                                {{ form.catagory }}
+                                <br>
+                                <br>
+                                {{ form.context(class="user-input username", placeholder='context', style="width: 50%;margin-top:5%;margin-bottom:10px;") }}
+                                <br>
+                                <br>
+                                {{ form.article(id="article") }}
                                 <br>
                                 {{ form.submit }}
-                                {{ ckeditor.load() }}
-                                {{ ckeditor.config(name='article') }}
-                                {{ ckeditor.config(width = 'auto') }}
                             </form>
                         </div>
                     </div>
@@ -141,9 +149,9 @@
                                         <h2 class="blog-title">{{post.title}}</h2>
                                     </a>
                                     <div class="details-wrapper">
-                                        <div class="post-info">{{post.postdate}}</div>
+                                        <div class="post-info">{{post.postdate.strftime("%Y-%m-%d %H:%M") }}</div>
                                         <div class="post-info">|</div>
-                                        <a href="https://denali-template.webflow.io/categories/art" class="post-info when-link">Art</a>
+                                        <a href="{{ url_for('view_post',post_id=post.id) }}" class="post-info when-link">Art</a>
                                     </div>
                                     <div class="post-summary-wrapper">
                                         <p class="post-summary">{{post.context |safe}}
@@ -162,46 +170,9 @@
     </div>
     <!--  -->
     <!--  -->
-    <div class="button-wrapper">
-        <a href="https://denali-template.webflow.io/all-posts" class="button w-button">More posts&nbsp;→</a>
-    </div>
-    <div class="sidebar-on-mobile">
-        <div class="white-wrapper">
-            <img src="{{ url_for('static', filename='icon/picture1.jpg') }}" alt="" class="circle-profile">
-            <p class="site-description">Denali is a simple responsive blog template. Easily add new posts using the Editor or change layout and design using the Designer.</p>
-            <div class="grey-rule"></div>
-            <h2 class="small-heading">Featured Posts:</h2>
-            <div class="feature-posts-list w-dyn-list">
-                <div role="list" class="w-dyn-items">
-                    <div role="listitem" class="w-dyn-item">
-                        <a href="https://denali-template.webflow.io/posts/half-and-half-variety-milk-viennese-body-cappuccino" class="small-post-link">According a funnily until pre-set or arrogant well cheerful</a>
-                    </div>
-                    <div role="listitem" class="w-dyn-item">
-                        <a href="https://denali-template.webflow.io/posts/steamed-siphon-froth-mazagran-cafe-au-lait" class="small-post-link">Overlaid the jeepers uselessly much excluding</a>
-                    </div>
-                </div>
-            </div>
-            <div class="grey-rule"></div>
-            <div class="social-link-group">
-                <a href="#" class="social-icon-link w-inline-block">
-                    <img src="{{ url_for('static', filename='icon/facebook.svg') }}" alt="" width="25">
-                </a>
-                <a href="#" class="social-icon-link w-inline-block">
-                    <img src="{{ url_for('static', filename='icon/instagram.svg') }}" alt="" width="25">
-                </a>
-                <a href="#" class="social-icon-link w-inline-block">
-                    <img src="{{ url_for('static', filename='icon/tweeter.svg') }}" alt="" width="25">
-                </a>
-                <a href="#" class="social-icon-link w-inline-block">
-                    <img src="{{ url_for('static', filename='icon/linkedin.svg') }}" alt="" width="25">
-                </a>
-            </div>
-            <p class="built-with-webflow">Built with 
-                <a target="_blank" href="https://webflow.com/" class="webflow-link">Webflow</a>
-            </p>
-        </div>
-    </div>
-</div>
+    {{ ckeditor.load() }}
+    {{ ckeditor.config(id='article') }}
+    {{ ckeditor.config(width = 'auto') }}
 <script>
 
     // let my_post = document.querySelector('#my-post')

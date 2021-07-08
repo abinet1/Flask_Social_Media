@@ -156,9 +156,9 @@ class Post(db.Model):
     context = db.Column(db.Text, nullable=False, unique=False)
     article = db.Column(db.Text, nullable=False, unique=False)
     catagory = db.Column(db.String(10), nullable=False, unique=False, default="For All")
-    image = db.Column(db.String(255), nullable=False, unique=False, default="picture1.jpg")
-    postdate = db.Column(db.DateTime, nullable=False, unique=False, default=datetime.utcnow)
-    lastupdate = db.Column(db.DateTime, nullable=False, unique=False, default=datetime.utcnow)
+    image = db.Column(db.String(255), unique=False, default="picture1.jpg")
+    postdate = db.Column(db.DateTime, unique=False, default=datetime.utcnow)
+    lastupdate = db.Column(db.DateTime, unique=False, default=datetime.utcnow)
     comment = db.relationship('Comment',backref="post_comment", lazy=True)
     like = db.relationship('PostLike',backref="post_like", lazy=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'),

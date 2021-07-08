@@ -1,6 +1,7 @@
 import os
 import random
 from datetime import datetime
+from sqlalchemy import desc
 from flask import url_for, render_template, redirect, request, abort
 from flask.helpers import flash, send_from_directory
 from flask_login.utils import login_required, logout_user
@@ -11,10 +12,10 @@ from flask_login import login_user, logout_user, current_user, login_required
 from flask_ckeditor import upload_success, upload_fail
 #--------------------------------------------Home-------------------------------------------------------------------------------------------------
 
-@app.route('/')
+@app.route('/',methods=['GET','POST'])
 @login_required
 def index():
-	posts = Post.query.all()
+	posts = Post.query.order_by(desc(Post.lastupdate)).all()
 	posts_you_follow=[]
 	posts_for_you=[]
 	my_post=[]
@@ -26,8 +27,10 @@ def index():
 			my_post.append(post)
 		elif not(current_user.is_followed(post.auther)):
 			posts_for_you.append(post)
+	print(posts_you_follow)
 	if form.validate_on_submit():
-		pst=Post(title=form.title.data,context=form.context.data,article=form.article.data)
+		pst=Post(title=form.title.data,context=form.context.data,article=form.article.data,catagory=form.catagory.data,auther=current_user)
+		db.session.add(pst)
 		db.session.commit()
 		return redirect(url_for('index'))
 	return render_template('index.html', posts_you_follow=posts_you_follow, posts_for_you=posts_for_you, my_post=my_post, form=form)
@@ -77,7 +80,10 @@ def add_friends(user_id):
 @app.route('/friends/follow/<int:user_id>',methods=['GET','POST'])
 @login_required
 def follow(user_id):
-	current_user.follow_user(User.query.get(user_id))
+	user=User.query.get(user_id)
+	current_user.follow_User(user)
+	print(current_user.is_followed(user))
+	db.session.commit()
 	return redirect( url_for('friends'))
 
 
@@ -102,7 +108,7 @@ def add_post():
 @login_required
 def edit_post(post_id):
 	form = PostForm()
-	post=Post.query.get(post_id)
+	post = Post.query.get(post_id)
 	if request.method =="GET":
 		form.title.data = post.title
 		form.context.data = post.context
@@ -121,8 +127,7 @@ def edit_post(post_id):
 @app.route('/post/delete<int:post_id>',methods=['GET','POST'])
 @login_required
 def delete_post(post_id):
-	post=Post.query.get_or_404(post_id)
-	print(post)
+	post = Post.query.get_or_404(post_id)
 	if post.auther != current_user:
 		abort(403)
 	else:

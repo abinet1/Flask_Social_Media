@@ -9,10 +9,10 @@
                     <div class="col-md-12 text-center" id="menu-flters"  style="background-color:#fff;">
                         <ul>
                             {%if requests %}
-                                <li><a href="#breakfast-test-1" class="filter filter-breakfast"data-filter=".breakfast">friend requests</a></li>
+                                <li><a href="#breakfast-test-1" class="filter filter-breakfast"data-filter=".breakfast">Friend Requests</a></li>
                             {% endif %}
                             {%if friends %}
-                                <li><a href="#breakfast-test-2" class="filter filter-dinner"data-filter=".dinner">Find friends</a></li>
+                                <li><a href="#breakfast-test-2" class="filter filter-dinner"data-filter=".dinner">Find Friends</a></li>
                             {% endif %}
                         </ul>
                     </div>
@@ -20,7 +20,7 @@
                         {%if requests %}
                             <div class="col-md-12 mab-35">
                                 <h2 class="small-header">
-                                    friend requests 
+                                    Friend Requests 
                                 </h2>
                             </div>
                             <div id="breakfast-test-1">
@@ -46,7 +46,7 @@
                         {% if friends %}
                             <div class="col-md-12 mab-35">
                                 <h2 class="small-header">
-                                    find friends 
+                                    Find Friends 
                                 </h2>
                             </div>
                             <div id="breakfast-test-2">
@@ -60,8 +60,8 @@
                                             <span class="menu-subtitle">{{friend.bio |safe}}</span>
                                         </span>
                                         <span>
-                                            <a href="{{ url_for('add_friends',user_id=friend.id) }}" class="btn btn-success confirm" name='add' value="add">add friend</a>
-                                            <a href="{{ url_for('follow',user_id=friend.id) }}" class="btn btn-primary delete" name='send' value="send">Follow</a>
+                                            <a href="{{ url_for('add_friends',user_id=friend.id) }}" class="btn btn-success addfriend" name='add' value="add">add friend</a>
+                                            <a href="{{ url_for('follow',user_id=friend.id) }}" class="btn btn-primary follow" name='send' value="send">Follow</a>
                                         </span>
                                     </div>
                                 {% endfor %}

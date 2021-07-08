@@ -31,7 +31,7 @@
     <div data-collapse="medium" data-animation="default" style="position:sticky;" data-duration="400" role="banner" class="navigation-bar w-nav">
         <div class="w-container" >
             <a href="{{ url_for('index') }}" aria-current="page" class="w-nav-brand w--current" aria-label="home">
-                <div class="site-name">Denali</div>
+                <div class="site-name">Blog</div>
             </a>
             <nav role="navigation" class="navigation-menu w-nav-menu">
                 <a href="{{ url_for('index') }}" aria-current="page" class="navigation-link w-nav-link w--current" style="max-width: 940px;">Home</a>
@@ -64,16 +64,16 @@
                         <br/>
                         <br/>
                         <div class="grey-rule"></div>
-                        <div class="social-link-group">
-                            <a style="justify-content: flex-start;"href="{{ url_for('friends') }}" class="social-icon-link w-inline-block">
+                        <div class="social-link-group"style="padding-left:50%;">
+                            <a style="justify-content: flex-end;"href="{{ url_for('friends') }}" class="social-icon-link w-inline-block">
                                 <img src="{{ url_for('static', filename='icon/user-friends-solid.svg') }}" alt="" width="25">
                             </a>
-                            <a style="justify-content: flex-end;" href="#" class="social-icon-link w-inline-block">
-                                <img src="{{ url_for('static', filename='icon/chat.svg') }}" alt="" width="25">
+                            <!-- <a style="justify-content: flex-end;" href="#" class="social-icon-link w-inline-block">
+                                #<img src="{{ url_for('static', filename='icon/chat.svg') }}" alt="" width="25">
                             </a>
                             <a style="justify-content: flex-end;"href="#" class="social-icon-link w-inline-block">
-                                <img src="{{ url_for('static', filename='icon/flag.svg') }}" alt="" width="25">
-                            </a>
+                                #<img src="{{ url_for('static', filename='icon/flag.svg') }}" alt="" width="25">
+                            </a> -->
                             <a style="justify-content: flex-end;"href="{{ url_for('log_out') }}" class="social-icon-link w-inline-block">
                                 <img src="{{ url_for('static', filename='icon/sign_out.svg') }}" alt="log out" width="25">
                             </a>

@@ -5,6 +5,12 @@
     border-bottom: 3px,black;
 }
 
+.comment-box-part{
+  display: inline-block;
+  width:80%;
+  justify-content: space-around;
+  margin-left: 10%;
+}
 .gender-field{
     padding-left: 2%;
     padding-right: 5%;
@@ -331,6 +337,44 @@
   cursor: pointer;
   width: 15%;
   font-size: 16px;
+}
+
+.addfriend {
+  border: none;
+  border-radius: 15px;
+  position: relative;
+  outline: 0;
+  padding: 2px;
+  text-align: center;
+  cursor: pointer;
+  width: 15%;
+  font-size: 16px;
+}
+
+.addfriend:hover{
+  background-color: rgb(135, 219, 124);
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+.follow {
+  border: none;
+  border-radius: 15px;
+  position: relative;
+  margin-left: 10px;
+  outline: 0;
+  padding: 2px;
+  padding-bottom: 3px;
+  text-align: center;
+  cursor: pointer;
+  width: 15%;
+  font-size: 16px;
+}
+
+.follow:hover {
+  background-color: #71a7f8;
+  border-radius: 10px;
+  transition: 0.2s;
 }
 
 .delete {
@@ -939,7 +983,6 @@
      height: 180px;
      margin-right: 20px;
      border-radius: 3px;
-     background-image: url("https://d3e54v103j8qbb.cloudfront.net/img/background-image.svg");
      background-position: 50% 50%;
      background-size: cover;
      background-repeat: no-repeat;

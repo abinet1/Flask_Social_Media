@@ -11,9 +11,9 @@
                         <div class="w-row">
                             {% if not current_user.about %}
                                 <div class="w-col w-col-10 w-col-medium-10">
-                                    <form method="post">
+                                    <form method="POST">
                                         {{ form.csrf_token }}
-                                        {{ form.about }}
+                                        {{ form.about(id="about") }}
                                         <br>
                                         {{ form.submit }}
                                     </form>
@@ -31,7 +31,7 @@
     </div>
 </div>
 {{ ckeditor.load() }}
-{{ ckeditor.config(name='about') }}
+{{ ckeditor.config(id='about') }}
 {{ ckeditor.config(width = 'auto') }}
 <a class="edit_about" >
     <img href="{{ url_for('static', filename='icon/edit.png') }}" alt="" style="margin-right: 8px; width: 16px;">
